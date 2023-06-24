@@ -5,6 +5,7 @@ with open("phonebook_raw.csv", 'r', encoding='utf-8') as f:
     rows = csv.reader(f, delimiter=",")
     contacts_list = list(rows)
     new_list = []
+    dict_ = {}
 
 
 def names_moving():
@@ -54,14 +55,16 @@ def duplicates_combining():
                     column[5] = contact[5]
                 if column[6] == '':
                     column[6] = contact[6]
-
-    for contact in contacts_list:
+        dict_[[','.join(column[:3])][0]] = str(','.join(i for i in column[3:]))
+    new_list.append(contacts_list[0])
+    for contact in list(dict_.items()):
         if contact not in new_list:
             new_list.append(contact)
     return new_list
 
 
 if __name__ == '__main__':
+
     names_moving()
     phone_number_formatting()
     duplicates_combining()
@@ -69,5 +72,4 @@ if __name__ == '__main__':
     with open("phonebook.csv", "w", encoding='utf-8') as f:
         datawriter = csv.writer(f, delimiter=',')
         datawriter.writerows(new_list)
-
 
